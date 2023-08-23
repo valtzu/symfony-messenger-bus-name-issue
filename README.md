@@ -10,6 +10,7 @@
 
 ### Possible fixes
 
+See [the pull request](https://github.com/symfony/symfony/pull/51468)
 
 #### Example headers without the fix
 
