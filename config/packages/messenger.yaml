@@ -1,0 +1,35 @@
+framework:
+  messenger:
+    serializer:
+      default_serializer: messenger.transport.symfony_serializer
+      symfony_serializer:
+        format: json
+        context: { }
+    default_bus: internal.bus
+    buses:
+      internal.bus:
+      external.bus:
+
+    failure_transport: failed
+    transports:
+      # https://symfony.com/doc/current/messenger.html#transport-configuration
+      external:
+        dsn: 'doctrine://default?queue_name=external'
+        serializer: 'App\Messenger\StampRemovingSerializer'
+        retry_strategy:
+          max_retries: 0
+      internal: 'doctrine://default?queue_name=internal'
+      failed: 'doctrine://default?queue_name=failed'
+      # sync: 'sync://'
+
+    routing:
+     'App\Message\TriggeringMessage': internal
+     # no explicit route for other messages => they will be handled synchronously
+
+# when@test:
+#    framework:
+#        messenger:
+#            transports:
+#                # replace with your transport name here (e.g., my_transport: 'in-memory://')
+#                # For more Messenger testing tools, see https://github.com/zenstruck/messenger-test
+#                async: 'in-memory://'
