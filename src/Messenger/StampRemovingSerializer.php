@@ -6,6 +6,9 @@ use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Transport\Serialization\SerializerInterface;
 
+/**
+ * This is just to simulate external message source which is missing all the stamps
+ */
 class StampRemovingSerializer implements SerializerInterface
 {
     public function __construct(
